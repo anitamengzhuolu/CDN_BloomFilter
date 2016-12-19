@@ -15,7 +15,7 @@ import javax.swing.*;
 public class hello
 {
 	String inputName = "";
-	static bloomfilter bf = new bloomfilter(500000,10);
+	static bloomfilter bf = new bloomfilter(50000,3);
 	
 	private static void prepare_bf(){
 		Scanner scanner;

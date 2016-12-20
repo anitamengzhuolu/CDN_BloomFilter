@@ -9,8 +9,8 @@ import java.io.PrintWriter;
 import java.io.FileWriter;
 
 class falsePositives {
-    private int m = 80000;
-    private float fp[] = new float[50];
+    private int m = 200000;
+    private float fp[] = new float[100];
     private String[] names = new String[2000]; 
         
     public void setNames() {
@@ -35,6 +35,7 @@ class falsePositives {
         	names[ii+1000]=Integer.toString(ii+1000);
         }
     }
+    
     public void prepareBF(bloomfilter bf) {
         Scanner scanner;
 		try {
@@ -42,23 +43,22 @@ class falsePositives {
 	        while(scanner.hasNext()){
 	        	int hashed = scanner.next().hashCode();
 	        	bf.add(hashed);
-	            //System.out.print(scanner.next()+'/');
 	        }
 	        scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		
         }
     }
+    
     public void varyK() {
-        for(int k=1; k<=50; k++) {
+        for(int k=1; k<=100; k++) {
             bloomfilter bf = new bloomfilter(m,k);
             prepareBF(bf);
             fp[k-1] = checkFalsePositives(bf);
         }
         try{
             PrintWriter writer = new PrintWriter("data/output.txt", "UTF-8");
-            for(int i=0; i<50; i++) {
+            for(int i=0; i<100; i++) {
             	writer.println(fp[i]);
             }
             writer.close();
@@ -77,11 +77,10 @@ class falsePositives {
         }
         return ((float)count-1000)/1000;
     }
-  
+    
     public static void main (String[] args) {
         falsePositives probFP = new falsePositives();
         probFP.setNames();
         probFP.varyK();
-        
     }
 }

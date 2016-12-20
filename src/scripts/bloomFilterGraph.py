@@ -1,4 +1,3 @@
-#p = exp(-(m/n)*pow(ln(2),2))
 import math
 import matplotlib.pyplot as plt
 
